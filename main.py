@@ -38,6 +38,12 @@ def main() -> None:
     path = os.path.join(output_dir, "entry.txt")
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(WORD + "\n")
+    # Read back what was written: the entry file must hold exactly the
+    # word plus one trailing newline, byte-identical to word.txt.
+    with open(path, "r", encoding="utf-8", newline="\n") as f:
+        written = f.read()
+    if written != WORD + "\n":
+        raise ValueError("entry file does not match the word")
     print(WORD)
 
 
